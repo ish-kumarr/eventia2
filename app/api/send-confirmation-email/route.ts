@@ -5,7 +5,7 @@ import dayjs from'dayjs';
 
 
 export async function POST(request: Request) {
-  const { razorpayPaymentId, razorpayOrderId, userEmail, eventTitle, amountPaid, Payment } = await request.json();
+  const { razorpayPaymentId, razorpayOrderId, userEmail, eventTitle, amountPaid, Payment, firstname } = await request.json();
 
   try {
 
@@ -24,7 +24,7 @@ export async function POST(request: Request) {
     // Email content
     const mailOptions = {
         
-      from: 'no-reply@example.com',
+      from: 'no-reply@eventia.com',
       to: userEmail,
       subject: 'Payment Confirmation',
       text: `<!DOCTYPE html>
@@ -49,7 +49,7 @@ export async function POST(request: Request) {
           </svg>
         </div>
         <h2 style="font-size: 24px; font-weight: 600; color: #333333; text-align: center; margin-bottom: 16px;">Your Payment Was Successful!</h2>
-        <p style="color: #333333; margin-bottom: 16px; text-align: center;">Dear Ish Kumar,</p>
+        <p style="color: #333333; margin-bottom: 16px; text-align: center;">Dear ${firstname},</p>
         <p style="color: #333333; margin-bottom: 16px; text-align: center;">We're thrilled to confirm that your payment for the event "<strong>${eventTitle}</strong>" has been processed successfully.</p>
         <div style="background-color: #e3f2fd; border: 1px solid #90caf9; border-radius: 6px; padding: 16px; margin: 16px 0; text-align: center;">
           <p style="font-size: 24px; font-weight: bold; color: #0033cc; margin: 0;"><strong>Amount Paid:</strong></p>

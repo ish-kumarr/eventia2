@@ -15,7 +15,7 @@ const Footer = () => {
             alt="Eventia Logo"
                 width={200}
                 height={200}
-                className="mr-2 invert"
+                className="mr-2 "
 
               />
             </div>

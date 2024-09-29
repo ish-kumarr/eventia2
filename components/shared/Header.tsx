@@ -11,29 +11,39 @@ function Header() {
       <div className="wrapper flex items-center gap-14 -mt-3 md:-mt-1.5 justify-between  md:gap-80">
         {/* Logo */}
         <Link href="/" className="w-28 md:mb-1 mb-3 md:w-36">
-          <Image
-            src="/assets/images/logo.svg"
-            width={128}
-            height={38}
-            alt="Eventia logo"
-            className="invert" // Invert the logo color if it's originally dark
-          />
+          <SignedIn>
+            <Image
+              src="/assets/images/logo.svg"
+              width={128}
+              height={38}
+              alt="Eventia logo"
+              className=" md:mt-0 mt-1" // Added md:mt-1 for logged-in users
+            />
+          </SignedIn>
+          <SignedOut>
+            <Image
+              src="/assets/images/logo.svg"
+              width={128}
+              height={38}
+              alt="Eventia logo"
+              className=" md:mt-0" // Kept md:mt-0 for logged-out users
+            />
+          </SignedOut>
         </Link>
 
         {/* Navigation Items - visible on larger screens */}
         <SignedIn>
-          <nav className="hidden md:flex md:items-center gap-x-8">
+          <nav className="hidden -mt-1 -ml-[100px] md:flex md:items-center gap-x-8">
             <NavItems />
           </nav>
         </SignedIn>
 
         {/* User Actions and Mobile Navigation */}
         <div className="flex items-center justify-end -mt-4 md:-mt-2 gap-1 md:gap-6">
-          
           <SignedIn>
             <div className="flex items-center -mb-2 md:mb-0">
-            <UserButton />
-            <MobileNav />
+              <UserButton />
+              <MobileNav />
             </div>
           </SignedIn>
           <SignedOut>

@@ -7,7 +7,7 @@ const CreateEvent = () => {
 
   return (
     <div className="bg-gray-900 pt-[100px] lg:pt-[120px] text-white min-h-screen">
-      <section className="bg-gray-800 bg-dottedd-pattern bg-cover bg-center py-5 md:py-10">
+      <section className="bg-gray-800 bg-dottedd-pattern bg-cover bg-center py-4 md:py-10">
         <h3 className="wrapper h3-bold text-center sm:text-left text-gray-100">Create Event</h3>
       </section>
 

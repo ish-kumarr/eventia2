@@ -12,7 +12,9 @@ const CheckoutButton = ({ event }: { event: IEvent }) => {
   const { user } = useUser();
   const userId = user?.publicMetadata.userId as string;
   const hasEventFinished = new Date(event.endDateTime) < new Date();
+  
   const [hasPurchased, setHasPurchased] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // Loading state
   const router = useRouter();
 
   useEffect(() => {
@@ -25,21 +27,28 @@ const CheckoutButton = ({ event }: { event: IEvent }) => {
             console.error('Error response from server:', response.statusText);
             return;
           }
-  
+
           const data = await response.json();
           setHasPurchased(data.hasPurchased);
         } catch (error) {
           console.error('Error checking ticket purchase:', error);
+        } finally {
+          setIsLoading(false); // Set loading to false after fetching data
         }
       }
     };
-  
+
     checkIfPurchased();
   }, [userId, event._id]);
-  
+
   const handleRedirect = () => {
     router.push('/profile');
   };
+
+  if (isLoading) {
+    // Display a loader or placeholder while checking the purchase status
+    return <Button disabled className="rounded-full w-auto px-4 py-2">Loading...</Button>;
+  }
 
   return (
     <div className="flex items-center gap-3">

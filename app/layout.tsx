@@ -8,6 +8,7 @@ import {
   SignedOut,
   UserButton
 } from '@clerk/nextjs'
+import { Preloader } from "@/components/shared/Preloader";
 const poppins = Poppins({ 
   subsets: ["latin"],
   weight: ["400","500","600", "700"],
@@ -33,6 +34,7 @@ export default function RootLayout({
     <ClerkProvider>
     <html lang="en">
       <body className={poppins.variable}>
+      <Preloader />
         {children}</body>
     </html>
     </ClerkProvider>

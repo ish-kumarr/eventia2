@@ -258,6 +258,43 @@ body {
   width: 100%;
 }
 
+/* Custom scrollbar for WebKit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+  height: 12px; /* Height of the scrollbar for horizontal scrollbars */
+}
+
+/* Background of the scrollbar track */
+::-webkit-scrollbar-track {
+  background: rgba(48, 48, 48, 0.7); /* Track color */
+  border-radius: 10px; /* Rounded corners for the track */
+}
+
+/* Thumb of the scrollbar */
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 71, 143, 0.8); /* Thumb color (Light Blue) */
+  border-radius: 10px; /* Rounded corners for the thumb */
+}
+
+/* Hover effect for the thumb */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 71, 143, 0.8) /* Darker thumb color on hover */
+}
+
+/* Custom scrollbar for Firefox */
+* {
+  scrollbar-width: thin; /* Set scrollbar width to thin */
+  scrollbar-color: rgba(0, 71, 143, 0.8) rgba(0, 0, 0, 0.1); /* Thumb color and track color */
+}
+
+/* Example for other browsers */
+body {
+  background-color: #1a1a1a; /* Optional background color for better visibility */
+  color: #ffffff; /* Optional text color for better visibility */
+  overflow-y: scroll; /* Ensure scrollbars are visible */
+}
+
+
 .react-datepicker__input-container input {
   background-color: transparent;
   width: 100%;

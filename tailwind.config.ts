@@ -77,6 +77,7 @@ module.exports = withUt({
       },
       animation: {
         'gradient-move': 'gradient-move 10s linear infinite',
+        'spin-slow': 'spin 3s linear infinite',
       },
     },
   },

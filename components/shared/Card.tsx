@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { DeleteConfirmation } from './DeleteConfirmation'
-import { CalendarIcon, MapPinIcon, TicketIcon, User } from 'lucide-react'
+import { CalendarIcon, MapPinIcon, TicketIcon, User, BarChart2 } from 'lucide-react'
 import VerifiedBadge from '../ui/verified'
 
 type CardProps = {
@@ -14,15 +14,15 @@ type CardProps = {
   hidePrice?: boolean
 }
 
-const Card = ({ event, hasOrderLink, hidePrice }: CardProps) => {
+export default function Card({ event, hasOrderLink, hidePrice }: CardProps) {
   const { sessionClaims } = auth();
   const userId = sessionClaims?.userId as string;
 
   const isEventCreator = userId === event.organizer._id.toString();
 
   return (
-<div className="group relative flex w-full max-w-[400px] flex-col overflow-hidden rounded-xl bg-gray-800 shadow-md transition-transform duration-300 hover:scale-105 hover:shadow-lg">
-<Link 
+    <div className="group relative flex w-full max-w-[400px] flex-col overflow-hidden rounded-xl bg-gray-800 shadow-md transition-transform duration-300 hover:scale-105 hover:shadow-lg">
+      <Link 
         href={`/events/${event._id}`}
         className="relative aspect-[4/3] w-full overflow-hidden"
       >
@@ -71,21 +71,27 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardProps) => {
           <p className="break-words">
             {event.organizer.firstName} {event.organizer.lastName} 
           </p>
-          
         </div>
 
         {hasOrderLink && (
-          <Link 
-            href={`/orders?eventId=${event._id}`} 
-            className="mt-auto flex items-center justify-center gap-2 w-full px-3 py-2 text-sm font-medium text-blue-400 bg-blue-900/30 rounded-lg hover:bg-blue-900/50 transition-colors"
-          >
-            <TicketIcon className="w-5 h-5" />
-            <span>View Order Details</span>
-          </Link>
+          <div className="mt-auto flex gap-2">
+            <Link 
+              href={`/orders?eventId=${event._id}`} 
+              className="flex items-center justify-center gap-2 w-full px-3 py-2 text-sm font-medium text-blue-400 bg-blue-900/30 rounded-lg hover:bg-blue-900/50 transition-colors"
+            >
+              <TicketIcon className="w-5 h-5" />
+              <span>View Orders</span>
+            </Link>
+            <Link 
+              href={`/dashboard/${event._id}`} 
+              className="flex items-center justify-center gap-2 w-full px-3 py-2 text-sm font-medium text-purple-400 bg-purple-900/30 rounded-lg hover:bg-purple-900/50 transition-colors"
+            >
+              <BarChart2 className="w-5 h-5" />
+              <span>Dashboard</span>
+            </Link>
+          </div>
         )}
       </div>
     </div>
   )
 }
-
-export default Card

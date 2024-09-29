@@ -37,11 +37,11 @@ export default function FuturisticDarkDropdown({ value, onChangeHandler }: Dropd
   }, [])
 
   return (
-    <div className="relative w-full max-w-xs">
+    <div className="relative w-full">
       <Select onValueChange={onChangeHandler} defaultValue={value} onOpenChange={setIsOpen}>
-        <SelectTrigger className="w-full bg-gray-800 text-gray-200 rounded-full p-4 shadow-lg hover:shadow-xl transition-all duration-300 focus:ring-2 focus:ring-gray-600 focus:outline-none border border-gray-700">
+        <SelectTrigger className="w-full bg-gray-800 text-gray-200 rounded-full py-[25px] shadow-lg hover:shadow-xl transition-all duration-300 focus:ring-2 focus:ring-gray-600 focus:outline-none border border-gray-700">
           <SelectValue placeholder="Select Category" />
-          <ChevronDownIcon className={`ml-2 h-4 w-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+          {/* <ChevronDownIcon className={`ml-2 h-4 w-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} /> */}
         </SelectTrigger>
         <SelectContent className="bg-gray-800 text-gray-200 rounded-lg shadow-xl border border-gray-700 overflow-hidden">
           <AnimatePresence>

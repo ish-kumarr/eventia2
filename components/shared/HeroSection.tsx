@@ -3,6 +3,7 @@
 import { useRef, useEffect } from 'react'
 import { Button } from "@/components/ui/button"
 import { FaFacebook, FaInstagram, FaEnvelope, FaGooglePlus } from 'react-icons/fa'
+import Component from './Badge';
 
 interface SocialButtonProps {
   icon: React.ComponentType<{ size: number }>;
@@ -41,7 +42,7 @@ export default function HeroSection() {
         className="absolute inset-0 w-full h-full object-cover z-0 hidden sm:block"
         aria-hidden="true"
       >
-        <source src="https://ishkumar.com/videos/eventia/001.mp4" type="video/mp4" />
+        <source src="\assets\videos\herolg.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
@@ -64,6 +65,7 @@ export default function HeroSection() {
       {/* Main Content */}
       <main className="flex-grow flex lg:ml-16 items-end pb-16 px-4 sm:px-6 lg:px-8 relative z-30">
         <div className="max-w-7xl">
+          <Component />
           <h1 className="lg:text-6xl max-w-7xl md:text-7xl sm:text-3xl text-3xl font-bold text-white mb-6 lg:leading-tight">
             Elevate Your Campus Experience, and<br />Grow your Network.
           </h1>
@@ -81,7 +83,7 @@ export default function HeroSection() {
 
       {/* Gradient Animation */}
       <div
-        className="absolute inset-x-0 -bottom-32 h-96 bg-gradient-to-t from-[#ff0050] via-[#ff00a0] via-[#ff00f5] to-[#8000ff] opacity-20 blur-3xl z-20 animate-gradient"
+        className="absolute inset-x-0 -bottom-32 h-96 bg-gradient-to-t from-[#ff0050] via-[#cc00ff] via-[#ff00f5] to-[#8000ff] opacity-20 blur-3xl z-20 animate-gradient"
         aria-hidden="true"
       />
 

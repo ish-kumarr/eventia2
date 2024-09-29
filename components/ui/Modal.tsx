@@ -1,83 +1,115 @@
-import React from 'react';
+"use client";
 
-interface ModalProps {
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { CheckIcon } from "lucide-react";
+import { useRouter } from "next/navigation"; // Use Next.js routing
+
+interface SuccessModalProps {
   isOpen: boolean;
   onClose: () => void;
   message: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, message }) => {
-  if (!isOpen) return null;
+const SuccessModal: React.FC<SuccessModalProps> = ({
+  isOpen,
+  onClose,
+  message,
+}) => {
+  const [countdown, setCountdown] = useState(4); // Initialize countdown
+  const router = useRouter(); // Access the router for redirection
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "unset";
+
+    if (isOpen) {
+      // Start countdown when modal opens
+      const interval = setInterval(() => {
+        setCountdown((prev) => {
+          if (prev === 1) {
+            clearInterval(interval);
+            router.push("/profile"); // Redirect to profile page
+            return prev; // Prevent countdown from going below 1
+          }
+          return prev - 1; // Decrease countdown
+        });
+      }, 1000); // Update countdown every second
+
+      return () => clearInterval(interval); // Cleanup interval on unmount
+    }
+  }, [isOpen, router]);
 
   return (
-    <div
-      className="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]"
-    >
-      <div className="w-full max-w-lg bg-white shadow-lg rounded-lg p-6 relative">
-        {/* Close Button */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-red-500"
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 backdrop-blur-sm"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-6 h-6"
-            viewBox="0 0 320.591 320.591"
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className="bg-gray-900 rounded-2xl p-8 shadow-2xl w-full max-w-md relative overflow-hidden"
           >
-            <path
-              d="M30.391 318.583a30.37 30.37 0 0 1-21.56-7.288c-11.774-11.844-11.774-30.973 0-42.817L266.643 10.665c12.246-11.459 31.462-10.822 42.921 1.424 10.362 11.074 10.966 28.095 1.414 39.875L51.647 311.295a30.366 30.366 0 0 1-21.256 7.288z"
-              data-original="#000000"
-            />
-            <path
-              d="M287.9 318.583a30.37 30.37 0 0 1-21.257-8.806L8.83 51.963C-2.078 39.225-.595 20.055 12.143 9.146c11.369-9.736 28.136-9.736 39.504 0l259.331 257.813c12.243 11.462 12.876 30.679 1.414 42.922-.456.487-.927.958-1.414 1.414a30.368 30.368 0 0 1-23.078 7.288z"
-              data-original="#000000"
-            />
-          </svg>
-        </button>
+            {/* Animated background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-600/30 to-blue-600/30 animate-gradient-xy" />
 
-        {/* Modal Content */}
-        <div className="flex flex-col items-center">
-          {/* Success Icon */}
-          <div className="mb-6">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-16 h-16 text-green-500"
-              viewBox="0 0 512 512"
+            {/* Success icon */}
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{
+                type: "spring",
+                stiffness: 300,
+                damping: 20,
+                delay: 0.2,
+              }}
+              className="relative w-32 h-32 mx-auto mb-8"
             >
-              <path
-                d="M383.841 171.838c-7.881-8.31-21.02-8.676-29.343-.775L221.987 296.732l-63.204-64.893c-8.005-8.213-21.13-8.393-29.35-.387-8.213 7.998-8.386 21.137-.388 29.35l77.492 79.561a20.687 20.687 0 0 0 14.869 6.275 20.744 20.744 0 0 0 14.288-5.694l147.373-139.762c8.316-7.888 8.668-21.027.774-29.344z"
-                data-original="#000000"
-              />
-              <path
-                d="M256 0C114.84 0 0 114.84 0 256s114.84 256 256 256 256-114.84 256-256S397.16 0 256 0zm0 470.487c-118.265 0-214.487-96.214-214.487-214.487 0-118.265 96.221-214.487 214.487-214.487 118.272 0 214.487 96.221 214.487 214.487 0 118.272-96.215 214.487-214.487 214.487z"
-                data-original="#000000"
-              />
-            </svg>
-          </div>
+              <div className="absolute inset-0 bg-green-500 rounded-full opacity-20 animate-pulse" />
+              <div className="absolute inset-2 bg-gray-900 rounded-full flex items-center justify-center">
+                <CheckIcon className="w-16 h-16 text-green-500" />
+              </div>
+              <svg className="w-full h-full" viewBox="0 0 100 100">
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="45"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="8"
+                  className="text-green-500 animate-[dash_1.5s_ease-in-out_forwards]"
+                  strokeDasharray="283"
+                  strokeDashoffset="283"
+                />
+              </svg>
+            </motion.div>
 
-          {/* Heading and Message */}
-          <h4 className="text-xl text-gray-800 font-semibold mb-4">Successfully accepted!</h4>
-          <p className="text-sm text-gray-500 leading-relaxed mb-6">{message}</p>
-
-          {/* Additional Content */}
-          <div className="w-full border-t border-gray-200 pt-4">
-            <h5 className="text-lg font-semibold text-gray-700 mb-2">Additional Details</h5>
-            <p className="text-sm text-gray-600">
-              Here you can add more information related to the success message, such as steps for the next actions, additional resources, or contact details.
-            </p>
-          </div>
-        </div>
-
-        {/* Action Button */}
-        <button
-          type="button"
-          className="mt-6 px-5 py-2.5 w-full rounded-lg text-white text-sm border-none outline-none bg-gray-800 hover:bg-gray-700"
-        >
-          Got it
-        </button>
-      </div>
-    </div>
+            {/* Text content */}
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.4 }}
+              className="text-center"
+            >
+              <h2 className="text-3xl font-bold text-white mb-4">
+                Ticket Purchase Successful!
+              </h2>
+              <p className="text-gray-300 mb-4">{message}</p>
+              {/* Countdown message */}
+              <p className="text-gray-200">
+                Redirecting you to profile page in {countdown}...
+              </p>
+            </motion.div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 
-export default Modal;
+export default SuccessModal;
