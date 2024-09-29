@@ -30,9 +30,6 @@ coverage/
 # Bower dependency directory (https://bower.io/)
 bower_components/
 
-# Compiled source
-lib/
-
 # Temporary files
 tmp/
 temp/
