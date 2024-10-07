@@ -101,7 +101,7 @@ const CategoryFilter = () => {
         <AnimatePresence>
           {isOpen && (
             <motion.ul
-              className="absolute w-full mt-2 bg-gray-800 rounded-lg shadow-lg overflow-hidden z-10"
+              className="absolute w-full mt-2 bg-gray-800 rounded-lg shadow-lg overflow-hidden z-50" // Added z-index here
               role="listbox"
               variants={dropdownVariants}
               initial="hidden"
